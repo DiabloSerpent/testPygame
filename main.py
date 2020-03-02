@@ -19,7 +19,7 @@ esc_image = esc.render(esc_msg, 0, (0, 255, 0), (255, 0, 0))
 screen.blit(esc_image, esc_rect)
 
 srsly = pygame.font.Font(None, 60)
-srsly_msg = "SERIOUSLY"
+srsly_msg = "EPA ESC APE"
 srsly_rect = pygame.Rect((0, 0), srsly.size(srsly_msg))
 srsly_rect.center = bounds.center
 srsly_rect.move_ip(0, 100)
