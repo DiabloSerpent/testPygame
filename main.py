@@ -10,6 +10,21 @@ running = True
 
 screen.fill((255, 0, 0))
 
+
+class Message:
+    def __init__(self, msg):
+        self.font = pygame.font.Font(None, 60)
+        self.msg = msg
+        self.rect = pygame.Rect((0, 0), self.font.size(msg))
+        self.image = pygame.Surface((0, 0))
+
+    def create_image(self, text, background):
+        self.image = self.font.render(self.msg, 0, text, background)
+
+    def draw(self, surface):
+        surface.blit(self.image, self.rect)
+
+
 esc = pygame.font.Font(None, 60)
 esc_msg = "ESCAPE WHILE YOU STILL CAN"
 esc_rect = pygame.Rect((0, 0), esc.size(esc_msg))
@@ -26,6 +41,13 @@ srsly_rect.move_ip(0, 100)
 srsly_image = esc.render(srsly_msg, 0, (0, 0, 255), (255, 0, 0))
 
 screen.blit(srsly_image, srsly_rect)
+
+esc2 = Message("ESC")
+esc2.rect.center = bounds.center
+esc2.rect.move_ip(0, -150)
+esc2.create_image((0, 0, 255), (255, 0, 0))
+
+esc2.draw(screen)
 
 pygame.display.flip()
 
