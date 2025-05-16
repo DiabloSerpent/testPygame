@@ -1,56 +1,44 @@
 import pygame
 import pygame.locals as pgv
+import math
 
 pygame.init()
 
 screen = pygame.display.set_mode((800, 600))
 bounds = pygame.Rect(0, 0, 800, 600)
 ticker = pygame.time.Clock()
-running = True
+running = False
 
 screen.fill((255, 0, 0))
 
+def myAtan2(x, y):
+    result = math.atan2(y, x)
+    '''if x != 0:
+        if y == 0 and x < 0:
+            result = math.pi
+        else:
+            result = math.atan(y/x)
+    else:
+        result = math.pi / 2
+        if y >= 0:
+            # Unnecesarily big brain coding
+            result *= 3'''
+    if result < 0:
+        result += math.pi * 2
+            
+    print(f"({x}, {y}): {math.degrees(result)}")
+    print("math.atan2():", math.degrees(math.atan2(y, x)))
 
-class Message:
-    def __init__(self, msg):
-        self.font = pygame.font.Font(None, 60)
-        self.msg = msg
-        self.rect = pygame.Rect((0, 0), self.font.size(msg))
-        self.image = pygame.Surface((0, 0))
-
-    def create_image(self, text, background):
-        self.image = self.font.render(self.msg, 0, text, background)
-
-    def draw(self, surface):
-        surface.blit(self.image, self.rect)
-
-
-esc = pygame.font.Font(None, 60)
-esc_msg = "ESCAPE WHILE YOU STILL CAN"
-esc_rect = pygame.Rect((0, 0), esc.size(esc_msg))
-esc_rect.center = bounds.center
-esc_image = esc.render(esc_msg, 0, (0, 255, 0), (255, 0, 0))
-
-screen.blit(esc_image, esc_rect)
-
-srsly = pygame.font.Font(None, 60)
-srsly_msg = "EPA ESC APE"
-srsly_rect = pygame.Rect((0, 0), srsly.size(srsly_msg))
-srsly_rect.center = bounds.center
-srsly_rect.move_ip(0, 100)
-srsly_image = esc.render(srsly_msg, 0, (0, 0, 255), (255, 0, 0))
-
-screen.blit(srsly_image, srsly_rect)
-
-esc2 = Message("ESC")
-esc2.rect.center = bounds.center
-esc2.rect.move_ip(0, -150)
-esc2.create_image((0, 0, 255), (255, 0, 0))
-
-esc2.draw(screen)
-
-pygame.display.flip()
-
+print("Axes:")
+myAtan2(1, 0)  # 0
+myAtan2(-1, 0)  # 180
+myAtan2(0, 1)  # 270
+myAtan2(0, -1)  # 90
+print("\nDiagonals:")
+myAtan2(1, -1)  # 315
+myAtan2(-1, -1)  # 225
+myAtan2(-1, 1)  # 135
+myAtan2(1, 1)  # 45
 
 while running:
     for ev in pygame.event.get():
